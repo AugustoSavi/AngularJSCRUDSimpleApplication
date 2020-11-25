@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <div class="container">  		
+        <hr>
+        <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Adcionar Produto</button>
+        <h2>Todos os Produtos</h2>
+            <div class="clearfix"></div>
+            <hr>
+            
+            <div class="alert alert-info alert-dismissible" role="alert" ng-if="info">
+          <button type="button" class="close" aria-label="Close"><span aria-hidden="true" ng-click="clearInfo()">&times;</span></button>
+          {{info}}
+        </div>
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="produto in produtos">
+                <td> {{ $index+1 }}.</td>
+                <td> {{produto.descricao}} </td>
+                <td>{{produto.quantidade}}</td>
+                <td>{{produto.valor}}</td>
+                <td> <button class="btn btn-info btn-sm"  type="button" data-toggle="modal" data-target="#myModalEdit" ng-click="selectProduto(produto)">Edit</button> </td>
+                <td> <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModalDelete" ng-click="selectProduto(produto)">Delete</button> </td>
+              </tr>		      
+            </tbody>
+            <tr>
+              <th>Valor Total:</th>
+              <th></th>
+              <th></th>
+              <th>{{total}}</th>
+              <th></th>
+            </tr>
+          </table>
+        </div>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    
+     <!-- Trigger the modal with a button -->
+    
+    
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <h4 class="modal-title">Novo Produto</h4>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Descrição</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputEmail3" placeholder="Descricao" ng-model="novoProduto.descricao" ng-required="true">
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Valor</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" id="inputEmail3" placeholder="Valor" ng-model="novoProduto.valor" ng-required="true">
+                </div>
+              </div>
+                            
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveProduto();">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    
+    <!-- Modal -->
+    <div id="myModalEdit" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Editar esse produto</h4>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+
+
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Descrição</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputEmail3" placeholder="Username" ng-model="clickedProduto.descricao">
+                </div>
+              </div>
+    
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Valor</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-model="clickedProduto.valor">
+                </div>
+              </div>
+                            
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="myModalDelete" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-body">
+            <h3>Você realmente quer excluir o produto?</h3>
+            <br/>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" ng-click="deleteProduto()">Yes</button>	      	
+            <button type="button" class="btn btn-success pull-right" data-dismiss="modal">No</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+</body>
+</html>
