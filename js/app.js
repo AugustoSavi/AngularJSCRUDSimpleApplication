@@ -5,6 +5,8 @@ myApp.controller("myController", function($scope){
 	$scope.novoProduto = {};
 	$scope.info = "";
 
+	const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
 	$scope.produtos = [
 		{descricao: "arroz",  valor:15 , quantidade: 1},
 		{descricao: "feijão",  valor:15 , quantidade: 2},
@@ -31,10 +33,20 @@ myApp.controller("myController", function($scope){
 		$scope.info = "";
 	};
 
-	$scope.total = 
-		$scope.produtos.reduce(getTotal, 0);
-		
-		function getTotal(total, item) {
-		return total + (item.valor * item.quantidade);
-	}
+
+	$scope.$watch('produtos', function (newValue, oldValue, scope) {
+
+		$scope.total = somarValores();
+
+	}, true);
+
+	function somarValores(){
+		var soma = 0;
+		 
+		for (var i=0; i<$scope.produtos.length; i++){      
+				soma += $scope.produtos[i].quantidade * $scope.produtos[i].valor;
+		}
+		return soma;
+	} 
+
 });
